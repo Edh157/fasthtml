@@ -1,14 +1,18 @@
 from fasthtml.common import *
 
-app,rt = fast_app()
+#app,rt = fast_app(live=True)
+# live reloading turned on
+
+app = FastHTMLWithLiveReload()
+rt = app.route
 
 @rt('/')
-def get(): return Title('Welcome to my website'), Div(
-    H1('Hello everyone!'), 
-    P("Can you guess my feeling?", hx_get="/change")
+def get(): return Title('My website'), Div(
+    H1('Welcome visitor!'), 
+    P("Do you know what?", hx_get="/change")
     )
 
 @rt('/change')
-def get(): return P('I am so happy to be here!')
+def get(): return P('This page has been watched XXX times!')
 
-serve()
+serve() # wrapper around a uvicorn call -> type python filename.py to launch the webserver
